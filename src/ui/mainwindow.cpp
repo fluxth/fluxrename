@@ -18,8 +18,6 @@ MainWindow::MainWindow(QWidget* parent) :
 
     ui->setupUi(this);
 
-    connect(m_pages[0], &FWidgetBase::validityChanged, this, &MainWindow::updateValidity);
-
     switchWidget(m_currentPageIndex);
 }
 
@@ -28,7 +26,7 @@ MainWindow::~MainWindow()
     delete ui;
 
     for (auto* page : m_pages) {
-        delete page;
+        page->deleteLater();
     }
 }
 
@@ -42,11 +40,19 @@ bool MainWindow::switchWidget(size_t index) {
 
     ui->widget = m_pages[index];
 
-    m_pages[m_currentPageIndex]->hide();
-    m_pages[index]->show();
+    auto* prevWidget = m_pages[m_currentPageIndex];
+    auto* nextWidget = m_pages[index];
+
+    disconnect(prevWidget, &FWidgetBase::validityChanged, this, &MainWindow::updateValidity);
+    connect(nextWidget, &FWidgetBase::validityChanged, this, &MainWindow::updateValidity);
+
+    prevWidget->hide();
+    nextWidget->show();
+
+    nextWidget->hydrateScanner(prevWidget->takeScanner());
 
     m_currentPageIndex = index;
-    ui->label->setText(QString("Step %1: %2").arg(m_currentPageIndex + 1).arg(m_pages[index]->getTitle()));
+    ui->label->setText(QString("Step %1: %2").arg(m_currentPageIndex + 1).arg(nextWidget->getTitle()));
 
     if (index == 0)
         ui->btnBack->hide();

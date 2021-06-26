@@ -13,6 +13,7 @@ SOURCES += \
     src/fscannerworker.cpp \
     src/ui/configurewidget.cpp \
     src/ui/filterwidget.cpp \
+    src/ui/fwidgetbase.cpp \
     src/ui/inputwidget.cpp \
     src/main.cpp \
     src/ui/mainwindow.cpp

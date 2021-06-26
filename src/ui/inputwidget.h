@@ -3,8 +3,6 @@
 
 #include "fwidgetbase.h"
 
-#import "../fscanner.h"
-
 #import <QScopedPointer>
 
 namespace Ui {
@@ -26,6 +24,8 @@ public:
     bool isValid() const override;
     QString getPath() const;
 
+    bool hydrateScanner(unique_ptr<FScanner> scanner) override;
+
 private slots:
     void updateCount(size_t count);
     void scanFinished();
@@ -37,7 +37,6 @@ private slots:
 
 private:
     Ui::InputWidget* ui;
-    QScopedPointer<FScanner> m_scanner;
     QWidget* m_formElements[5];
 
     void setPath(const QString& path);

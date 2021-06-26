@@ -6,8 +6,7 @@
 
 InputWidget::InputWidget(QWidget* parent) :
     FWidgetBase(parent),
-    ui(new Ui::InputWidget),
-    m_scanner(nullptr)
+    ui(new Ui::InputWidget)
 {
     ui->setupUi(this);
 
@@ -18,6 +17,9 @@ InputWidget::InputWidget(QWidget* parent) :
     m_formElements[4] = ui->inputBox;
 
     showInfo();
+
+    // TEST
+    setPath("~/Desktop");
 }
 
 InputWidget::~InputWidget()
@@ -38,9 +40,29 @@ QString InputWidget::getPath() const
     return ui->inputBox->text();
 }
 
+bool InputWidget::hydrateScanner(unique_ptr<FScanner> scanner)
+{
+    if (!FWidgetBase::hydrateScanner(std::move(scanner)))
+        return false;
+
+    if (m_scanner) {
+        auto scannerPath = m_scanner->getAbsolutePath();
+        if (scannerPath != getPath()) {
+            setPath(scannerPath);
+        }
+    } else {
+        clearPath();
+    }
+
+    return true;
+}
+
 void InputWidget::updateCount(size_t count)
 {
-    showInfo(QString("%3canning: Found %L1 file%2").arg(count).arg(count == 1 ? "" : "s").arg(isRecursive() ? "Recursively s" : "S"));
+    showInfo(QString("%3canning: Found %L1 file%2")
+            .arg(count)
+            .arg(count == 1 ? "" : "s")
+            .arg(isRecursive() ? "Recursively s" : "S"));
 }
 
 void InputWidget::scanFinished()
@@ -76,8 +98,8 @@ void InputWidget::setPath(const QString& path)
     ui->inputBox->setText(parsedPath);
     emit validityChanged();
 
-    connect(m_scanner.data(), &FScanner::countUpdated, this, &InputWidget::updateCount);
-    connect(m_scanner.data(), &FScanner::done, this, &InputWidget::scanFinished);
+    connect(m_scanner.get(), &FScanner::countUpdated, this, &InputWidget::updateCount);
+    connect(m_scanner.get(), &FScanner::done, this, &InputWidget::scanFinished);
 
     disableForms();
     m_scanner->scan();
@@ -87,6 +109,7 @@ void InputWidget::clearPath()
 {
     m_scanner.reset();
     ui->inputBox->setText("");
+    showInfo();
     emit validityChanged();
 }
 
