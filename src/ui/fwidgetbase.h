@@ -16,6 +16,9 @@ public:
     virtual const char* getTitle() const = 0;
     virtual bool isValid() const { return false; }
 
+    virtual void widgetWillAppear() {};
+    virtual void widgetWillDisappear() {};
+
     virtual unique_ptr<FScanner> takeScanner();
     virtual bool hydrateScanner(unique_ptr<FScanner> scanner);
 

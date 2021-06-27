@@ -32,12 +32,11 @@ private slots:
     void on_btnBrowse_clicked();
     void on_btnClear_clicked();
     void on_btnEdit_clicked();
-
-    void on_checkboxRecursive_stateChanged(int arg1);
+    void on_checkboxRecursive_stateChanged(int state);
 
 private:
     Ui::InputWidget* ui;
-    QWidget* m_formElements[5];
+    array<QWidget*, 5> m_formElements;
 
     void setPath(const QString& path);
     void clearPath();

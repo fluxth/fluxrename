@@ -17,18 +17,19 @@ public:
     ~MainWindow();
 
 private slots:
+    void updateValidity();
+
     void on_btnContinue_clicked();
     void on_btnBack_clicked();
-
-    void updateValidity();
 
 private:
     Ui::MainWindow* ui;
 
-    FWidgetBase* m_pages[3];
+    const array<unique_ptr<FWidgetBase>, 3> m_pages;
     size_t m_currentPageIndex;
 
     bool switchWidget(size_t index);
+    bool calculateRename();
 };
 #endif // MAINWINDOW_H
 

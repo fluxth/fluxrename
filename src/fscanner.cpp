@@ -24,7 +24,7 @@ bool FScanner::isRecursive() const
     return m_recursive;
 }
 
-bool FScanner::isValid()
+bool FScanner::isValid() const
 {
     QMutexLocker locker(&m_mutex);
     return exists() && m_scannerData.targets.count() > 0;
@@ -40,41 +40,41 @@ QString FScanner::getAbsolutePath() const
     return m_rootDir.absolutePath();
 }
 
-size_t FScanner::getFileCount()
+size_t FScanner::getFileCount() const
 {
     QMutexLocker locker(&m_mutex);
     return m_scannerData.targets.count();
 }
 
-QList<ExtensionPair> FScanner::getExtensionList()
+QPair<QMutex&, const QList<ExtensionPair>&> FScanner::getExtensionList() const
 {
-    QMutexLocker locker(&m_mutex);
-
-    QList<ExtensionPair> list;
-    list.reserve(m_scannerData.extensions.count());
-
-    QHashIterator it(m_scannerData.extensions);
-    while (it.hasNext()) {
-        it.next();
-        list.emplaceBack(it.key(), it.value());
-    }
-
-    std::sort(list.begin(), list.end(), [](ExtensionPair l, ExtensionPair r) {
-        return l.second > r.second;
-    });
-
-    return list;
+    return { m_mutex, m_scannerData.extensionList };
 }
 
-QPair<QMutex&, const QList<QFileInfo>&> FScanner::getFileList()
+QPair<QMutex&, const QList<QFileInfo>&> FScanner::getFileList() const
 {
     return { m_mutex, m_scannerData.targets };
+}
+
+QPair<QMutex&, const FRenameConfig&> FScanner::getRenameConfig() const
+{
+    return { m_mutex, m_scannerData.renameConfig };
+}
+
+QPair<QMutex&, FRenameConfig&> FScanner::getMutRenameConfig()
+{
+    return { m_mutex, m_scannerData.renameConfig };
 }
 
 void FScanner::setFilteredIndices(const QSet<size_t>& indices)
 {
     QMutexLocker locker(&m_mutex);
     m_scannerData.filteredIndices = indices;
+}
+
+QPair<QMutex&, const FScannerData&> FScanner::getData() const
+{
+    return { m_mutex, m_scannerData };
 }
 
 void FScanner::scan()

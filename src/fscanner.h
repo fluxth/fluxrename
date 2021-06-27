@@ -6,32 +6,33 @@
 #import <QFileInfo>
 #import <QDir>
 
-struct FScannerData {
-    QList<QFileInfo> targets;
-    QHash<QString, size_t> extensions;
-    QSet<size_t> filteredIndices;
-};
-
-typedef QPair<QString, size_t> ExtensionPair;
+#import "global.h"
+#import "models/fscannerdata.h"
 
 class FScanner : public QObject
 {
     Q_OBJECT
 public:
-    FScanner(const QString& path, bool recursive = false);
+    friend class FRenamer;
+
+    explicit FScanner(const QString& path, bool recursive = false);
     ~FScanner();
 
     bool isRecursive() const;
-    bool isValid();
+    bool isValid() const;
     bool exists() const;
 
     QString getAbsolutePath() const;
-    size_t getFileCount();
+    size_t getFileCount() const;
 
-    QList<ExtensionPair> getExtensionList();
-    QPair<QMutex&, const QList<QFileInfo>&> getFileList();
+    QPair<QMutex&, const QList<ExtensionPair>&> getExtensionList() const;
+    QPair<QMutex&, const QList<QFileInfo>&> getFileList() const;
+    QPair<QMutex&, const FRenameConfig&> getRenameConfig() const;
+    QPair<QMutex&, FRenameConfig&> getMutRenameConfig();
 
     void setFilteredIndices(const QSet<size_t>& indices);
+
+    QPair<QMutex&, const FScannerData&> getData() const;
 
     void scan();
 
@@ -40,7 +41,7 @@ private:
     bool m_recursive;
 
     FScannerData m_scannerData;
-    QMutex m_mutex;
+    mutable QMutex m_mutex;
 
     void scanDir(const QDir& dir, bool recursive = false);
 

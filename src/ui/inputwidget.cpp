@@ -93,9 +93,9 @@ void InputWidget::setPath(const QString& path)
     }
 
     QString parsedPath = parsePath(path);
-
-    m_scanner.reset(new FScanner(parsedPath, isRecursive()));
     ui->inputBox->setText(parsedPath);
+
+    m_scanner = std::make_unique<FScanner>(parsedPath, isRecursive());
     emit validityChanged();
 
     connect(m_scanner.get(), &FScanner::countUpdated, this, &InputWidget::updateCount);
@@ -107,7 +107,7 @@ void InputWidget::setPath(const QString& path)
 
 void InputWidget::clearPath()
 {
-    m_scanner.reset();
+    m_scanner.reset(nullptr);
     ui->inputBox->setText("");
     showInfo();
     emit validityChanged();

@@ -22,7 +22,7 @@ bool FilterWidget::hydrateScanner(unique_ptr<FScanner> scanner)
         return false;
 
     if (m_scanner) {
-        populateExtensionList();
+        populateExtensionList(true);
         showStatus();
 
         return true;
@@ -42,16 +42,24 @@ unique_ptr<FScanner> FilterWidget::takeScanner()
     return FWidgetBase::takeScanner();
 }
 
-void FilterWidget::populateExtensionList()
+void FilterWidget::populateExtensionList(bool clear)
 {
-    clearExtensionList();
-    m_extensionListLUT.clear();
+    if (!clear && ui->extensionListWidget->count() > 0 && m_extensionListLUT.count() > 0)
+        return;
 
-    m_extensionListCache = m_scanner->getExtensionList();
+    if (clear) {
+        clearExtensionList();
+        m_extensionListLUT.clear();
+    }
+
+    auto [mutex, extList] = m_scanner->getExtensionList();
+    QMutexLocker locker(&mutex);
 
     size_t i = 0;
-    for (const auto& ext : m_extensionListCache) {
-        addExtensionListItem(ext, true);
+    bool checked = true;
+    for (const auto& ext : extList) {
+        // TODO: remember checked extensions
+        addExtensionListItem(ext, checked);
         m_extensionListLUT.insert(ext.first, i);
         i++;
     }
@@ -234,7 +242,7 @@ void FilterWidget::on_checkboxCaseSensitive_stateChanged(int)
         m_debounceTimer.start();
 }
 
-void FilterWidget::on_lineEditExclude_textChanged(const QString &arg1)
+void FilterWidget::on_lineEditExclude_textChanged(const QString&)
 {
     if (!m_debounceTimer.isActive())
         m_debounceTimer.start();

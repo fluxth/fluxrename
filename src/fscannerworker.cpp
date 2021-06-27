@@ -16,7 +16,27 @@ void FScannerWorker::run()
 {
     QMutexLocker locker(&m_mutex);
     scanDir(m_rootDir, m_recursive);
+
+    m_scannerData.extensionList = generateExtensionList(m_scannerData.extensions);
     emit done();
+}
+
+QList<ExtensionPair> FScannerWorker::generateExtensionList(const QHash<QString, size_t>& extensions) const
+{
+    QList<ExtensionPair> list;
+    list.reserve(extensions.count());
+
+    QHashIterator it(extensions);
+    while (it.hasNext()) {
+        it.next();
+        list.emplaceBack(it.key(), it.value());
+    }
+
+    std::sort(list.begin(), list.end(), [](ExtensionPair l, ExtensionPair r) {
+        return l.second > r.second;
+    });
+
+    return list;
 }
 
 void FScannerWorker::scanDir(const QDir& dir, bool recursive)

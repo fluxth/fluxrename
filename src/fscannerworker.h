@@ -22,6 +22,8 @@ private:
 
     void scanDir(const QDir& dir, bool recursive = false);
 
+    QList<ExtensionPair> generateExtensionList(const QHash<QString, size_t>& extensions) const;
+
 signals:
     void countUpdated(size_t count);
     void done();

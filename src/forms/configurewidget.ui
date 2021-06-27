@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>447</width>
-    <height>584</height>
+    <width>458</width>
+    <height>658</height>
    </rect>
   </property>
   <property name="maximumSize">
@@ -24,69 +24,27 @@
     <number>10</number>
    </property>
    <item>
-    <widget class="QGroupBox" name="addGroup">
-     <property name="title">
-      <string>Add</string>
+    <widget class="QCheckBox" name="cbIncludeExtension">
+     <property name="text">
+      <string>Include file extensions in rename processing (dangerous!)</string>
      </property>
-     <property name="checkable">
-      <bool>true</bool>
-     </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
-     <layout class="QFormLayout" name="formLayout_2">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::ExpandingFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="addCbPrefix">
-        <property name="text">
-         <string>Prefix</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="addLePrefix"/>
-      </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="addCbInsert">
-        <property name="text">
-         <string>Insert</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
-        </property>
-        <item>
-         <widget class="QLineEdit" name="addLeInsert"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>at index</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="addSbInsertIndex"/>
-        </item>
-       </layout>
-      </item>
-      <item row="2" column="0">
-       <widget class="QCheckBox" name="addCbSuffix">
-        <property name="text">
-         <string>Suffix</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="addLeSuffix"/>
-      </item>
-     </layout>
     </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>10</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item>
     <widget class="QGroupBox" name="replaceGroup">
@@ -106,7 +64,7 @@
          <enum>QFormLayout::ExpandingFieldsGrow</enum>
         </property>
         <item row="0" column="0">
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="repLbFind">
           <property name="text">
            <string>Find</string>
           </property>
@@ -116,7 +74,7 @@
          <widget class="QLineEdit" name="repLeFind"/>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
+         <widget class="QLabel" name="repLbReplace">
           <property name="text">
            <string>Replace</string>
           </property>
@@ -162,7 +120,7 @@
      <property name="checked">
       <bool>false</bool>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="50,50">
       <property name="sizeConstraint">
        <enum>QLayout::SetMaximumSize</enum>
       </property>
@@ -179,7 +137,11 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="trimSbStart"/>
+         <widget class="QSpinBox" name="trimSbStart">
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_9">
@@ -189,7 +151,11 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="trimSbEnd"/>
+         <widget class="QSpinBox" name="trimSbEnd">
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -208,7 +174,10 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_10">
+           <widget class="QLabel" name="trimLbRangeStart">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="text">
              <string>Range Start</string>
             </property>
@@ -217,10 +186,20 @@
          </layout>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="trimSbRangeStart"/>
+         <widget class="QSpinBox" name="trimSbRangeStart">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_11">
+         <widget class="QLabel" name="trimLbRangeEnd">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="text">
            <string>Range End</string>
           </property>
@@ -230,9 +209,103 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSpinBox" name="trimSbRangeEnd"/>
+         <widget class="QSpinBox" name="trimSbRangeEnd">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
         </item>
        </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="addGroup">
+     <property name="title">
+      <string>Add</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <layout class="QFormLayout" name="formLayout_2">
+      <property name="fieldGrowthPolicy">
+       <enum>QFormLayout::ExpandingFieldsGrow</enum>
+      </property>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="addCbPrefix">
+        <property name="text">
+         <string>Prefix</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="addLePrefix">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="addCbInsert">
+        <property name="text">
+         <string>Insert</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item>
+         <widget class="QLineEdit" name="addLeInsert">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="addLbInsertIndex">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>at index</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="addSbInsertIndex">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximum">
+           <number>999</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <widget class="QCheckBox" name="addCbSuffix">
+        <property name="text">
+         <string>Suffix</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="addLeSuffix">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -248,100 +321,202 @@
      <property name="checked">
       <bool>false</bool>
      </property>
-     <layout class="QFormLayout" name="formLayout_3">
-      <property name="fieldGrowthPolicy">
-       <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
-      </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_4">
-        <property name="text">
-         <string>Position</string>
+     <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="50,50">
+      <item>
+       <layout class="QFormLayout" name="formLayout_3">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <property name="spacing">
-         <number>2</number>
-        </property>
-        <item>
-         <widget class="QComboBox" name="numCmPosition">
-          <item>
-           <property name="text">
-            <string>Beginning</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>At Index</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>End</string>
-           </property>
-          </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_4">
+          <property name="text">
+           <string>Position</string>
+          </property>
          </widget>
         </item>
-        <item>
-         <widget class="QSpinBox" name="numSbPositionIndex">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
+        <item row="0" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <property name="spacing">
+           <number>0</number>
           </property>
+          <item>
+           <widget class="QComboBox" name="numCmPosition">
+            <item>
+             <property name="text">
+              <string>Beginning</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>At Index</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>End</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="numSbPositionIndex">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="maximum">
+             <number>999</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="numSbPad">
           <property name="maximum">
-           <number>999</number>
+           <number>20</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_6">
+          <property name="text">
+           <string>Pad Places</string>
           </property>
          </widget>
         </item>
        </layout>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Starting Number</string>
+      <item>
+       <layout class="QFormLayout" name="formLayout_6">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
-       </widget>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>Starting Number</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="numSbStartNum">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="maximum">
+           <number>1000000</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_7">
+          <property name="text">
+           <string>Increment</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="numSbIncrement">
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="1" column="1">
-       <widget class="QSpinBox" name="numSbStartNum">
-        <property name="maximum">
-         <number>1000000</number>
-        </property>
-       </widget>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="stringGroup">
+     <property name="title">
+      <string>String Manipulation</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_11" stretch="50,50">
+      <item>
+       <layout class="QFormLayout" name="formLayout_7">
+        <item row="0" column="0">
+         <widget class="QLabel" name="strLbUpper">
+          <property name="text">
+           <string>UPPER CASE</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="strCbUpper">
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Filename</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Extension</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Name &amp; Ext</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>Pad Places</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QSpinBox" name="numSbPad">
-        <property name="maximum">
-         <number>20</number>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>Increment</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QSpinBox" name="numSbIncrement">
-        <property name="minimum">
-         <number>1</number>
-        </property>
-        <property name="maximum">
-         <number>1000</number>
-        </property>
-       </widget>
+      <item>
+       <layout class="QFormLayout" name="formLayout_8">
+        <item row="0" column="1">
+         <widget class="QComboBox" name="strCbLower">
+          <item>
+           <property name="text">
+            <string>None</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Filename</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Extension</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Name &amp; Ext</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="strLbLower">
+          <property name="text">
+           <string>lower case</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
