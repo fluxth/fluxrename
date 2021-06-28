@@ -88,7 +88,7 @@ bool ConfigureWidget::validate() const
     return true;
 }
 
-bool ConfigureWidget::validateReplace() const
+inline bool ConfigureWidget::validateReplace() const
 {
     if (!ui->replaceGroup->isChecked())
         return true;
@@ -102,7 +102,7 @@ bool ConfigureWidget::validateReplace() const
     return false;
 }
 
-bool ConfigureWidget::validateTrim() const
+inline bool ConfigureWidget::validateTrim() const
 {
     if (!ui->trimGroup->isChecked())
         return true;
@@ -117,7 +117,7 @@ bool ConfigureWidget::validateTrim() const
     return false;
 }
 
-bool ConfigureWidget::validateAdd() const
+inline bool ConfigureWidget::validateAdd() const
 {
     if (!ui->addGroup->isChecked())
         return true;
@@ -140,7 +140,7 @@ bool ConfigureWidget::validateAdd() const
     return result;
 }
 
-bool ConfigureWidget::validateStringManipulation() const
+inline bool ConfigureWidget::validateStringManipulation() const
 {
     return true;
 }
@@ -160,7 +160,7 @@ void ConfigureWidget::serialize()
     serializeStringManipulation(config.string);
 }
 
-void ConfigureWidget::serializeReplace(RenameConfig::ReplaceConfig& config)
+inline void ConfigureWidget::serializeReplace(RenameConfig::ReplaceConfig& config)
 {
     config.enabled = ui->replaceGroup->isChecked();
     config.clearExisting = checkbox2bool(ui->repCbClear->checkState());
@@ -170,7 +170,7 @@ void ConfigureWidget::serializeReplace(RenameConfig::ReplaceConfig& config)
     config.replace = ui->repLeReplace->text();
 }
 
-void ConfigureWidget::serializeTrim(RenameConfig::TrimConfig& config)
+inline void ConfigureWidget::serializeTrim(RenameConfig::TrimConfig& config)
 {
     config.enabled = ui->trimGroup->isChecked();
     config.fromStartIndex = ui->trimSbStart->value();
@@ -181,7 +181,7 @@ void ConfigureWidget::serializeTrim(RenameConfig::TrimConfig& config)
     config.rangeEndIndex = ui->trimSbRangeEnd->value();
 }
 
-void ConfigureWidget::serializeAdd(RenameConfig::AddConfig& config)
+inline void ConfigureWidget::serializeAdd(RenameConfig::AddConfig& config)
 {
     config.enabled = ui->addGroup->isChecked();
 
@@ -196,7 +196,7 @@ void ConfigureWidget::serializeAdd(RenameConfig::AddConfig& config)
     config.suffix = ui->addLeSuffix->text();
 }
 
-void ConfigureWidget::serializeStringManipulation(RenameConfig::StringManipulationConfig& config)
+inline void ConfigureWidget::serializeStringManipulation(RenameConfig::StringManipulationConfig& config)
 {
     config.enabled = ui->stringGroup->isChecked();
 
@@ -217,7 +217,7 @@ void ConfigureWidget::deserialize()
     deserializeStringManipulation(config.string);
 }
 
-void ConfigureWidget::deserializeReplace(const RenameConfig::ReplaceConfig& config)
+inline void ConfigureWidget::deserializeReplace(const RenameConfig::ReplaceConfig& config)
 {
     ui->repCbRegex->setCheckState(bool2checkbox(config.useRegex));
 
@@ -228,7 +228,7 @@ void ConfigureWidget::deserializeReplace(const RenameConfig::ReplaceConfig& conf
     ui->replaceGroup->setChecked(config.enabled);
 }
 
-void ConfigureWidget::deserializeTrim(const RenameConfig::TrimConfig& config)
+inline void ConfigureWidget::deserializeTrim(const RenameConfig::TrimConfig& config)
 {
     ui->trimSbStart->setValue(config.fromStartIndex);
     ui->trimSbEnd->setValue(config.fromEndIndex);
@@ -240,7 +240,7 @@ void ConfigureWidget::deserializeTrim(const RenameConfig::TrimConfig& config)
     ui->trimGroup->setChecked(config.enabled);
 }
 
-void ConfigureWidget::deserializeAdd(const RenameConfig::AddConfig& config)
+inline void ConfigureWidget::deserializeAdd(const RenameConfig::AddConfig& config)
 {
 
     ui->addLePrefix->setText(config.prefix);
@@ -256,7 +256,7 @@ void ConfigureWidget::deserializeAdd(const RenameConfig::AddConfig& config)
     ui->addGroup->setChecked(config.enabled);
 }
 
-void ConfigureWidget::deserializeStringManipulation(const RenameConfig::StringManipulationConfig& config)
+inline void ConfigureWidget::deserializeStringManipulation(const RenameConfig::StringManipulationConfig& config)
 {
     ui->strCbLower->setCurrentIndex(static_cast<int>(config.lowerCase));
     ui->strCbUpper->setCurrentIndex(static_cast<int>(config.upperCase));

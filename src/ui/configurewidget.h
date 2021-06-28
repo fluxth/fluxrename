@@ -37,22 +37,22 @@ private:
     inline void inputsChanged();
 
     bool validate() const;
-    bool validateReplace() const;
-    bool validateTrim() const;
-    bool validateAdd() const;
-    bool validateStringManipulation() const;
+    inline bool validateReplace() const;
+    inline bool validateTrim() const;
+    inline bool validateAdd() const;
+    inline bool validateStringManipulation() const;
 
     void serialize();
-    void serializeReplace(RenameConfig::ReplaceConfig& config);
-    void serializeTrim(RenameConfig::TrimConfig& config);
-    void serializeAdd(RenameConfig::AddConfig& config);
-    void serializeStringManipulation(RenameConfig::StringManipulationConfig& config);
+    inline void serializeReplace(RenameConfig::ReplaceConfig& config);
+    inline void serializeTrim(RenameConfig::TrimConfig& config);
+    inline void serializeAdd(RenameConfig::AddConfig& config);
+    inline void serializeStringManipulation(RenameConfig::StringManipulationConfig& config);
 
     void deserialize();
-    void deserializeReplace(const RenameConfig::ReplaceConfig& config);
-    void deserializeTrim(const RenameConfig::TrimConfig& config);
-    void deserializeAdd(const RenameConfig::AddConfig& config);
-    void deserializeStringManipulation(const RenameConfig::StringManipulationConfig& config);
+    inline void deserializeReplace(const RenameConfig::ReplaceConfig& config);
+    inline void deserializeTrim(const RenameConfig::TrimConfig& config);
+    inline void deserializeAdd(const RenameConfig::AddConfig& config);
+    inline void deserializeStringManipulation(const RenameConfig::StringManipulationConfig& config);
 
     template<size_t S>
     static inline void batchSetEnabled(const array<QWidget*, S>& widgets, bool enabled);
