@@ -2,7 +2,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++17
+CONFIG += c++17 sanitizer sanitize_address
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -42,87 +42,6 @@ FORMS += \
     src/forms/inputwidget.ui \
     src/forms/mainwindow.ui \
     src/forms/renamepreviewdialog.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    src/README.md
-
-
-HEADERS += \
-    src/fscanner.h \
-    src/fscannerworker.h \
-    src/global.h \
-    src/models/frenameconfig.h \
-    src/models/fscannerdata.h \
-    src/ui/configurewidget.h \
-    src/ui/filterwidget.h \
-    src/ui/fwidgetbase.h \
-    src/ui/inputwidget.h \
-    src/ui/mainwindow.h
-
-FORMS += \
-    src/forms/configurewidget.ui \
-    src/forms/filterwidget.ui \
-    src/forms/inputwidget.ui \
-    src/forms/mainwindow.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    src/README.md
-
-
-HEADERS += \
-    src/fscanner.h \
-    src/fscannerworker.h \
-    src/global.h \
-    src/models/frenameconfig.h \
-    src/models/fscannerdata.h \
-    src/ui/configurewidget.h \
-    src/ui/filterwidget.h \
-    src/ui/fwidgetbase.h \
-    src/ui/inputwidget.h \
-    src/ui/mainwindow.h
-
-FORMS += \
-    src/forms/configurewidget.ui \
-    src/forms/filterwidget.ui \
-    src/forms/inputwidget.ui \
-    src/forms/mainwindow.ui
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
-DISTFILES += \
-    src/README.md
-
-
-HEADERS += \
-    src/fscanner.h \
-    src/fscannerworker.h \
-    src/global.h \
-    src/models/frenameconfig.h \
-    src/models/fscannerdata.h \
-    src/ui/configurewidget.h \
-    src/ui/filterwidget.h \
-    src/ui/fwidgetbase.h \
-    src/ui/inputwidget.h \
-    src/ui/mainwindow.h
-
-FORMS += \
-    src/forms/configurewidget.ui \
-    src/forms/filterwidget.ui \
-    src/forms/inputwidget.ui \
-    src/forms/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
