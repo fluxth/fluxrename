@@ -11,7 +11,7 @@ A batch rename GUI utility for macOS
     - String Manipulations (upper/lowercase)
 
 ## Screenshots
-![Source selection screen](https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_1.png | width=500)
-![Filter screen](https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_2.png | width=500)
-![Rename configuration screen](https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_3.png | width=500)
-![Rename preview screen](https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_4.png | width=500)
+<img alt="Source selection screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_1.png">
+<img alt="Filter screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_2.png">
+<img alt="Rename configuration screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_3.png">
+<img alt="Rename preview screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_4.png">
