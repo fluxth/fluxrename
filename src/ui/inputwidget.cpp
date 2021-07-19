@@ -18,8 +18,10 @@ InputWidget::InputWidget(QWidget* parent) :
 
     showInfo();
 
+#ifdef QT_DEBUG
     // TEST
-    setPath("~/Desktop");
+    setPath("~/Desktop/testrename");
+#endif
 }
 
 InputWidget::~InputWidget()
