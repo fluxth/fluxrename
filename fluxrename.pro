@@ -21,6 +21,7 @@ SOURCES += \
     src/ui/mainwindow.cpp
 
 HEADERS += \
+    src/config.h \
     src/frenamer.h \
     src/fscanner.h \
     src/fscannerworker.h \

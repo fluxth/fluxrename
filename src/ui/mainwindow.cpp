@@ -39,7 +39,8 @@ bool MainWindow::switchWidget(size_t index) {
 
     if (index == size) {
         // preview rename
-        return calculateRename();
+        calculateRename();
+        return true;
     }
 
     auto oldHeight = height();
@@ -94,12 +95,25 @@ bool MainWindow::switchWidget(size_t index) {
 bool MainWindow::calculateRename()
 {
     auto scanner = m_pages[m_currentPageIndex]->takeScanner();
-    auto renamer = FRenamer(std::move(scanner));
+    auto renamer = FRenamer(std::move(scanner), this);
 
-    renamer.calculate(this);
-    renamer.previewChanges(this);
+    bool success = false;
+
+    if (renamer.calculate()) {
+        // calculate success
+        auto confirmation = renamer.previewChanges();
+
+        if (confirmation) {
+            renamer.commitRename();
+            success = true;
+        }
+    }
 
     m_pages[m_currentPageIndex]->hydrateScanner(renamer.takeScanner());
+
+    if (success)
+        return switchWidget(0);
+
     return true;
 }
 

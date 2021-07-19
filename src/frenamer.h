@@ -11,15 +11,18 @@ class FRenamer : public QObject
 {
     Q_OBJECT
 public:
-    explicit FRenamer(unique_ptr<FScanner> scanner);
+    explicit FRenamer(unique_ptr<FScanner> scanner, QWidget* parent);
     ~FRenamer();
 
-    void calculate(QWidget* parent);
-    void previewChanges(QWidget* parent);
+    bool calculate();
+    bool previewChanges();
+
+    void commitRename();
 
     unique_ptr<FScanner> takeScanner();
 
 private:
+    QWidget* m_parent;
     unique_ptr<FScanner> m_scanner;
     QList<FRenameItem> m_renameItems;
 

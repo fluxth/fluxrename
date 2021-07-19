@@ -1,12 +1,17 @@
 #include "frenamer.h"
 
 #include <QProgressDialog>
+#include <QMessageBox>
 #include <QRegularExpression>
+#include <QFile>
 
 #include "ui/renamepreviewdialog.h"
 
-FRenamer::FRenamer(unique_ptr<FScanner> scanner) :
+constexpr qsizetype PROGRESS_SHOW_THRESHOLD = 2000;
+
+FRenamer::FRenamer(unique_ptr<FScanner> scanner, QWidget* parent) :
     QObject(nullptr),
+    m_parent(parent),
     m_scanner(std::move(scanner))
 {
 
@@ -17,14 +22,14 @@ FRenamer::~FRenamer()
 
 }
 
-void FRenamer::calculate(QWidget* parent)
+bool FRenamer::calculate()
 {
     size_t filteredCount = m_scanner->m_scannerData.filteredIndices.count();
     m_renameItems.reserve(filteredCount);
 
-    QProgressDialog progress("Calculating new filenames...", "Cancel", 0, filteredCount, parent);
+    QProgressDialog progress("Calculating new filenames...", "Cancel", 0, filteredCount, m_parent);
     progress.setWindowModality(Qt::WindowModal);
-    if (filteredCount > 2000)
+    if (filteredCount > PROGRESS_SHOW_THRESHOLD)
         progress.show();
 
     size_t count = 0;
@@ -35,19 +40,76 @@ void FRenamer::calculate(QWidget* parent)
         const auto& fileInfo = m_scanner->m_scannerData.targets.at(i);
 
         if (!processItem(fileInfo)) {
-            qWarning("Process fail!"); // show error dialog
+            QMessageBox::critical(
+                m_parent,
+                "Calculation Failed",
+                QString(
+                    "fluxrename was unable to process file '%1'.\n"
+                    "Please check your configuration or try again later.")
+                        .arg(fileInfo.absoluteFilePath())
+                );
+            return false;
         }
 
         count++;
         progress.setValue(count);
     }
+
+    if (count == 0) {
+        QMessageBox::critical(
+            m_parent,
+            "Calculation Failed",
+            "No results were returned from the calculation.\n"
+            "Please check your configuration or try again later."
+            );
+        return false;
+    }
+
+    return true;
 }
 
-void FRenamer::previewChanges(QWidget* parent)
+bool FRenamer::previewChanges()
 {
-    RenamePreviewDialog dialog(parent, m_renameItems);
+    RenamePreviewDialog dialog(m_parent, m_renameItems);
     dialog.setWindowModality(Qt::WindowModal);
-    dialog.exec();
+    return dialog.exec() == QDialog::Accepted;
+}
+
+void FRenamer::commitRename()
+{
+    auto totalCount = m_renameItems.count();
+    QProgressDialog progress("Renaming files...", "", 0, totalCount, m_parent);
+
+    if (totalCount > PROGRESS_SHOW_THRESHOLD)
+        progress.show();
+
+    size_t count = 0;
+
+    size_t successCount = 0;
+    size_t failedCount = 0;
+
+    for (const auto& item : m_renameItems) {
+        //qDebug() << item.fileInfo.absoluteFilePath() << "->" << item.newFilename;
+        QString newAbsPath = QDir::cleanPath(item.fileInfo.dir().absolutePath() + QDir::separator() + item.newFilename);
+        auto success = QFile::rename(item.fileInfo.absoluteFilePath(), newAbsPath);
+        if (success) {
+            successCount++;
+        } else {
+            // TODO: dump csv!!! IMPORTANT
+            qWarning() << "RENAME FAILED";
+            failedCount++;
+        }
+
+        count++;
+        progress.setValue(count);
+    }
+
+    QMessageBox::information(
+        m_parent,
+        "Result",
+        QString("Rename report\n\nTotal Files Queued: %L1\nSuccess renames: %L2\nFailed Renames: %L3")
+                .arg(count).arg(successCount).arg(failedCount)
+        );
 }
 
 unique_ptr<FScanner> FRenamer::takeScanner()
@@ -65,7 +127,6 @@ bool FRenamer::processItem(const QFileInfo& fileInfo)
         return false;
 
     item.newFilename = result.value();
-    //qDebug() << item.newFilename;
 
     m_renameItems.emplaceBack(item);
     return true;
