@@ -10,6 +10,8 @@
 
 #include "aboutdialog.h"
 
+#include "../config.h"
+
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -25,6 +27,7 @@ MainWindow::MainWindow(QWidget* parent) :
 //    m_pages[2] = std::make_unique<ConfigureWidget>();
 
     ui->setupUi(this);
+    setWindowTitle("fluxrename v" APP_VERSION);
 
     switchWidget(m_currentPageIndex);
 }
