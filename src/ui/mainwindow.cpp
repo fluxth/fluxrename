@@ -8,6 +8,8 @@
 #include "fwidgetbase.h"
 #include"../frenamer.h"
 
+#include "aboutdialog.h"
+
 MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow),
@@ -133,4 +135,10 @@ void MainWindow::updateValidity()
         ui->btnContinue->setEnabled(true);
     else
         ui->btnContinue->setEnabled(false);
+}
+
+void MainWindow::on_action_About_triggered()
+{
+    AboutDialog dialog(this);
+    dialog.exec();
 }

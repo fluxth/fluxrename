@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/fluxrename-1024x1024.png</file>
+    </qresource>
+</RCC>

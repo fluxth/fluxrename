@@ -22,6 +22,8 @@ private slots:
     void on_btnContinue_clicked();
     void on_btnBack_clicked();
 
+    void on_action_About_triggered();
+
 private:
     Ui::MainWindow* ui;
 

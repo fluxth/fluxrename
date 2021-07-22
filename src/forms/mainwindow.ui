@@ -130,7 +130,6 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="action_About"/>
-    <addaction name="actionUsage"/>
    </widget>
    <widget class="QMenu" name="menu_File">
     <property name="title">
@@ -144,11 +143,6 @@
   <action name="action_License">
    <property name="text">
     <string>&amp;License</string>
-   </property>
-  </action>
-  <action name="actionUsage">
-   <property name="text">
-    <string>&amp;Usage</string>
    </property>
   </action>
   <action name="action_Close">
