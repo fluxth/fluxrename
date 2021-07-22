@@ -9,6 +9,7 @@ CONFIG += c++17 sanitizer sanitize_address
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/ui/aboutdialog.cpp \
     src/frenamer.cpp \
     src/fscanner.cpp \
     src/fscannerworker.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 
 HEADERS += \
     src/config.h \
+    src/ui/aboutdialog.h \
     src/frenamer.h \
     src/fscanner.h \
     src/fscannerworker.h \
@@ -38,6 +40,7 @@ HEADERS += \
     src/ui/mainwindow.h
 
 FORMS += \
+    src/forms/aboutdialog.ui \
     src/forms/configurewidget.ui \
     src/forms/filterwidget.ui \
     src/forms/inputwidget.ui \
