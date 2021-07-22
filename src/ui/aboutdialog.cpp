@@ -10,9 +10,7 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-
-    QString versionStr = "v" APP_VERSION " build %1";
-    ui->lbVersionInfo->setText(versionStr.arg(QDateTime::currentDateTimeUtc().toString("yyyyMMdd")));
+    ui->lbVersionInfo->setText("v" APP_VERSION " build " APP_BUILD);
 }
 
 AboutDialog::~AboutDialog()
