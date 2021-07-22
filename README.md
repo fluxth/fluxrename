@@ -15,7 +15,7 @@ A batch rename GUI utility for macOS
 
 ## Download
 
-[Click here](https://github.com/fluxTH/fluxrename/releases/download/v1.0.1/fluxrename-v1.0.2-Universal.dmg) to download the latest DMG installer (Universal Binary, v1.0.2)
+[Click here](https://github.com/fluxTH/fluxrename/releases/download/v1.0.2/fluxrename-v1.0.2-Universal.dmg) to download the latest DMG installer (Universal Binary, v1.0.2)
 
 ## Screenshots
 <img alt="Source selection screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_1.png">
