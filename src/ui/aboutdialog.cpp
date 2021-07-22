@@ -3,16 +3,15 @@
 
 #include "../config.h"
 
-#import <QDateTime>
+#include <QSysInfo>
 
 AboutDialog::AboutDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
-
-    QString versionStr = "v" APP_VERSION " build %1";
-    ui->lbVersionInfo->setText(versionStr.arg(QDateTime::currentDateTimeUtc().toString("yyyyMMdd")));
+    QString versionStr = "v" APP_VERSION " (%1) build " APP_BUILD;
+    ui->lbVersionInfo->setText(versionStr.arg(QSysInfo::buildCpuArchitecture()));
 }
 
 AboutDialog::~AboutDialog()
