@@ -13,6 +13,10 @@ A batch rename GUI utility for macOS
 - Written with C++ to provide a blazing fast performance
 - Reliable, fluxrename will not touch any of your files unless you click `Commit Rename`
 
+## Download
+
+[Click here](https://github.com/fluxTH/fluxrename/releases/download/v1.0.1/fluxrename-v1.0.1-Universal.dmg) to download the latest DMG installer (Universal Binary, v1.0.1)
+
 ## Screenshots
 <img alt="Source selection screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_1.png">
 <img alt="Filter screen" src="https://raw.githubusercontent.com/fluxTH/fluxrename/main/docs/screenshots/screen_2.png">
