@@ -51,3 +51,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 DISTFILES += \
     src/README.md
+
+ICON = res/icons/fluxrename.icns
+
+RESOURCES += \
+    res/fluxrename.qrc
